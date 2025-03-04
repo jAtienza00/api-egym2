@@ -15,4 +15,4 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage
 
 # Exponer el puerto 80
-EXPOSE 80
+EXPOSE 8081
