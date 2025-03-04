@@ -16,5 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/test-db', function () {
+    try {
+        DB::connection()->getPdo();
+        return "Conexión Exitosa";
+    } catch (\Exception $e) {
+        return "Error: " . $e->getMessage();
+    }
+});
 
