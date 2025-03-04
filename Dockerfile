@@ -1,4 +1,5 @@
-FROM php:8.1-apache
+FROM php:8.1-fpm
+
 
 # Instalar dependencias necesarias
 RUN apt-get update && apt-get install -y \
@@ -14,5 +15,5 @@ COPY . /var/www/html
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 /var/www/html/storage
 
-# Exponer el puerto 80
+# Exponer el puerto 8081
 EXPOSE 8081
