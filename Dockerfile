@@ -17,3 +17,5 @@ RUN chown -R www-data:www-data /var/www/html \
 
 # Exponer el puerto 8081
 EXPOSE 8081
+
+CMD ["php", "artisan", "serve", "--host:0.0.0.0", "--port=8081"]
