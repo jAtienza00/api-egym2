@@ -7,7 +7,7 @@ use App\Http\Controllers\MiController;
 
 class UsuarioPy extends MiController
 {
-    private static $url = "http://localhost:5000/usuarios";
+    private static $url = "https://api-python-user-production.up.railway.app/usuarios";
 
     /**
      * Obtener todos los usuarios.
