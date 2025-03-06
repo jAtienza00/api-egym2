@@ -5,10 +5,21 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Clases;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Artisan;
 
 class ApiClaseControllerTest extends TestCase
 {
     use RefreshDatabase;
+
+    use CreatesApplication;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        // Ejecuta las migraciones antes de cada test
+        Artisan::call('migrate:fresh'); // Usa migrate:fresh para limpiar la base de datos y aplicar todas las migraciones
+    }
     /*
     Metodo index
     */
