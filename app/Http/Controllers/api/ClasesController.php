@@ -188,16 +188,34 @@ class ClasesController extends MiController
         }
     }
 
-    private function paginar(Request $request)
-    {
-        $num = intval($request->paginar);
-        if (isset($request->sala)) {
-            $clases = Clases::where('sala', intval($request->sala))->paginate($num);
-            return response()->json($clases, 200);
-        }
+private function paginar(Request $request)
+{
+    $num = intval($request->paginar);
+    if (isset($request->sala)) {
+        $clases = Clases::where('sala', intval($request->sala))->paginate($num);
+    } else {
         $clases = Clases::paginate($num);
-        return response()->json($clases, 200);
     }
+
+    $clases = $clases->toArray();
+
+    // Añadir el parámetro paginate a las URLs de paginación
+    if (isset($clases['next_page_url'])) {
+        $clases['next_page_url'] = $clases['next_page_url'] ? $clases['next_page_url'] . '&paginate=' . $num : null;
+    }
+    if (isset($clases['last_page_url'])) {
+        $clases['last_page_url'] = $clases['last_page_url'] ? $clases['last_page_url'] . '&paginate=' . $num : null;
+    }
+    if (isset($clases['first_page_url'])) {
+        $clases['first_page_url'] = $clases['first_page_url'] ? $clases['first_page_url'] . '&paginate=' . $num : null;
+    }
+    if (isset($clases['prev_page_url'])) {
+        $clases['prev_page_url'] = $clases['prev_page_url'] ? $clases['prev_page_url'] . '&paginate=' . $num : null;
+    }
+
+    return response()->json($clases, 200);
+}
+
 
     private function filtrarSala(int $sala)
     {
