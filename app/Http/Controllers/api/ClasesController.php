@@ -222,4 +222,14 @@ private function paginar(Request $request)
         $clases = Clases::where('sala', $sala)->get();
         return response()->json($clases, 200);
     }
+        public function check404($study)
+    {
+        if (!$study) {
+            response()->json([
+                'status' => 404,
+                'message' => 'No se ha encontrado un estudio con ese id'
+            ], 404)->send();
+            die();
+        }
+    }
 }
