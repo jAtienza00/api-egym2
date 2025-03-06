@@ -19,9 +19,11 @@ class UsuarioPy extends MiController
      */
     public function index(Request $request)
     {
-        if (isset($request->nombre) && isset($request->contrasenia)) {
+        $url = $request->fullUrl();
+        if (strpos($url, 'nombre') !== false && strpos($url, 'contrasenia') !== false) {
             return $this->buscarUsu($request);
         }
+
         $ch = curl_init(UsuarioPy::$url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = json_decode(curl_exec($ch));
