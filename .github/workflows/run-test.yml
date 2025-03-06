@@ -3,39 +3,47 @@ name: Run Tests
 on:
   push:
     branches:
-      - main  # O la rama en la que deseas que se ejecute el flujo de trabajo
+      - main
   pull_request:
     branches:
-      - main  # O la rama en la que deseas que se ejecute el flujo de trabajo
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:5.7  # Usa una imagen de MySQL
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_db  # Nombre de la base de datos de pruebas
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-timeout=30s
+          --health-start-period=10s
+          --health-retries=3
 
     steps:
     - name: Check out the repository
       uses: actions/checkout@v2
-
+    
     - name: Set up PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.1'  # Elige la versión de PHP que usas en tu proyecto
-
+        php-version: '8.1'
+    
     - name: Install dependencies
       run: |
         composer install --prefer-dist --no-progress --no-suggest
-
-    - name: Set up MySQL
+    
+    - name: Set up .env file for testing
       run: |
-        sudo apt-get install mysql-server
-        sudo systemctl start mysql
-        sudo mysql -e 'CREATE DATABASE test_db;'
-
-    - name: Set up .env file
-      run: |
-        cp .env.test .env
+        cp .env.example .env
         php artisan key:generate
-        php artisan migrate --env=testing  # Realiza las migraciones si es necesario
+        php artisan migrate --env=testing  # Ejecuta las migraciones para el entorno de pruebas
 
     - name: Run tests
       run: |
