@@ -1,0 +1,42 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main  # O la rama en la que deseas que se ejecute el flujo de trabajo
+  pull_request:
+    branches:
+      - main  # O la rama en la que deseas que se ejecute el flujo de trabajo
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out the repository
+      uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.1'  # Elige la versión de PHP que usas en tu proyecto
+
+    - name: Install dependencies
+      run: |
+        composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Set up MySQL
+      run: |
+        sudo apt-get install mysql-server
+        sudo systemctl start mysql
+        sudo mysql -e 'CREATE DATABASE test_db;'
+
+    - name: Set up .env file
+      run: |
+        cp .env.test .env
+        php artisan key:generate
+        php artisan migrate --env=testing  # Realiza las migraciones si es necesario
+
+    - name: Run tests
+      run: |
+        ./vendor/bin/phpunit --configuration phpunit.xml
