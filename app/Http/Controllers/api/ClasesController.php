@@ -187,4 +187,21 @@ class ClasesController extends MiController
             die();
         }
     }
+
+    private function paginar(Request $request)
+    {
+        $num = intval($request->paginar);
+        if (isset($request->sala)) {
+            $clases = Clases::where('sala', intval($request->sala))->paginate($num);
+            return response()->json($clases, 200);
+        }
+        $clases = Clases::paginate($num);
+        return response()->json($clases, 200);
+    }
+
+    private function filtrarSala(int $sala)
+    {
+        $clases = Clases::where('sala', $sala)->get();
+        return response()->json($clases, 200);
+    }
 }
