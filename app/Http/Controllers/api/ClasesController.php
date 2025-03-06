@@ -35,8 +35,9 @@ class ClasesController extends MiController
      */
     public function index(Request $request)
     {
-        if (isset($request->paginar)) return $this->paginar($request);
-        if (isset($request->sala)) return $this->filtrarSala(intval($request->sala));
+        $url = $request->fullUrl();
+        if (strpos($url, 'paginar') !== false) return $this->paginar($request);
+        if (strpos($url, 'sala') !== false) return $this->filtrarSala(intval($request->sala));
         return response()->json(Clases::all(), 200);
     }
 
@@ -187,34 +188,33 @@ class ClasesController extends MiController
             die();
         }
     }
+    private function paginar(Request $request)
+    {
+        $num = intval($request->paginar);
+        $url = $request->fullUrl();
+        if (strpos($url, 'sala')) {
+            $clases = Clases::where('sala', intval($request->sala))->paginate($num);
+        } else {
+            $clases = Clases::paginate($num);
+        }
 
-private function paginar(Request $request)
-{
-    $num = intval($request->paginar);
-    if (isset($request->sala)) {
-        $clases = Clases::where('sala', intval($request->sala))->paginate($num);
-    } else {
-        $clases = Clases::paginate($num);
-    }
+        $clases = $clases->toArray();
 
-    $clases = $clases->toArray();
+        if (isset($clases['next_page_url'])) {
+            $clases['next_page_url'] = $clases['next_page_url'] ? $clases['next_page_url'] . '&paginate=' . $num : null;
+        }
+        if (isset($clases['last_page_url'])) {
+            $clases['last_page_url'] = $clases['last_page_url'] ? $clases['last_page_url'] . '&paginate=' . $num : null;
+        }
+        if (isset($clases['first_page_url'])) {
+            $clases['first_page_url'] = $clases['first_page_url'] ? $clases['first_page_url'] . '&paginate=' . $num : null;
+        }
+        if (isset($clases['prev_page_url'])) {
+            $clases['prev_page_url'] = $clases['prev_page_url'] ? $clases['prev_page_url'] . '&paginate=' . $num : null;
+        }
 
-    // Añadir el parámetro paginate a las URLs de paginación
-    if (isset($clases['next_page_url'])) {
-        $clases['next_page_url'] = $clases['next_page_url'] ? $clases['next_page_url'] . '&paginate=' . $num : null;
+        return response()->json($clases, 200);
     }
-    if (isset($clases['last_page_url'])) {
-        $clases['last_page_url'] = $clases['last_page_url'] ? $clases['last_page_url'] . '&paginate=' . $num : null;
-    }
-    if (isset($clases['first_page_url'])) {
-        $clases['first_page_url'] = $clases['first_page_url'] ? $clases['first_page_url'] . '&paginate=' . $num : null;
-    }
-    if (isset($clases['prev_page_url'])) {
-        $clases['prev_page_url'] = $clases['prev_page_url'] ? $clases['prev_page_url'] . '&paginate=' . $num : null;
-    }
-
-    return response()->json($clases, 200);
-}
 
 
     private function filtrarSala(int $sala)
@@ -222,7 +222,7 @@ private function paginar(Request $request)
         $clases = Clases::where('sala', $sala)->get();
         return response()->json($clases, 200);
     }
-        public function check404($study)
+    public function check404($study)
     {
         if (!$study) {
             response()->json([
