@@ -1,0 +1,385 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Clases",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost"
+        }
+    ],
+    "paths": {
+        "/api/clases": {
+            "get": {
+                "summary": "Obtener todas las clases",
+                "operationId": "e01ed43cc4f18683ddaf564ccf85c946",
+                "parameters": [
+                    {
+                        "name": "paginate",
+                        "in": "query",
+                        "description": "Número de resultados por página",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "sala",
+                        "in": "query",
+                        "description": "Filtrar por número de sala",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de clases obtenida correctamente"
+                    },
+                    "400": {
+                        "description": "Error en la solicitud"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crear una nueva clase",
+                "operationId": "c74a01aef24a1e91b523c7cbce560437",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "hora",
+                                    "sala",
+                                    "imagen"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Clase de Yoga"
+                                    },
+                                    "hora": {
+                                        "type": "string",
+                                        "format": "time",
+                                        "example": "14:30"
+                                    },
+                                    "sala": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "imagen": {
+                                        "type": "string",
+                                        "example": "url_de_la_imagen"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Clase creada con éxito"
+                    },
+                    "422": {
+                        "description": "Error en la validación de datos"
+                    }
+                }
+            }
+        },
+        "/api/clases/{id}": {
+            "get": {
+                "summary": "Obtener los detalles de una clase",
+                "operationId": "ff83beaa2385b934b69c339f0487c8d7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la clase",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles de la clase"
+                    },
+                    "404": {
+                        "description": "Clase no encontrada"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualizar una clase existente",
+                "operationId": "768d6e7452e627e500d662e6c9eadc31",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la clase a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "hora",
+                                    "sala",
+                                    "imagen"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Clase de Pilates"
+                                    },
+                                    "hora": {
+                                        "type": "string",
+                                        "format": "time",
+                                        "example": "16:00"
+                                    },
+                                    "sala": {
+                                        "type": "integer",
+                                        "example": 2
+                                    },
+                                    "imagen": {
+                                        "type": "string",
+                                        "example": "url_actualizada"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Clase actualizada correctamente"
+                    },
+                    "404": {
+                        "description": "Clase no encontrada"
+                    },
+                    "422": {
+                        "description": "Error en la validación de datos"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Eliminar una clase",
+                "operationId": "e7a6fb19b0483eedb57e0e287c859941",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la clase a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Clase eliminada correctamente"
+                    },
+                    "404": {
+                        "description": "Clase no encontrada"
+                    }
+                }
+            }
+        },
+        "/api/usuarios": {
+            "get": {
+                "summary": "Devuelve la lista de usuarios",
+                "description": "Obtener todos los usuarios.",
+                "operationId": "5b38cb26da95b7a2b4b734131955c91c",
+                "responses": {
+                    "200": {
+                        "description": "Lista de usuarios"
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crea un usuario",
+                "description": "Crear un nuevo usuario.",
+                "operationId": "7d2dd51e0a768b1ed182cdf240cc134c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "contrasenia"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string"
+                                    },
+                                    "contrasenia": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuario creado"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/{id}": {
+            "get": {
+                "summary": "Devuelve un usuario específico",
+                "description": "Obtener un usuario por ID.",
+                "operationId": "b647497dd01240ba3e662c8d019e7fc7",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Datos del usuario"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Actualiza un usuario",
+                "description": "Actualizar un usuario.",
+                "operationId": "2419532b58724491e7a293dbc9bb4da6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "contrasenia"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string"
+                                    },
+                                    "contrasenia": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario actualizado"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Elimina un usuario",
+                "description": "Eliminar un usuario.",
+                "operationId": "76baff706b18154dc75686a8928a6d61",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario eliminado"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Clases": {
+                "required": [
+                    "nombre",
+                    "hora",
+                    "sala",
+                    "imagen"
+                ],
+                "properties": {
+                    "id": {
+                        "description": "ID único de la clase",
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "nombre": {
+                        "description": "Nombre de la clase",
+                        "type": "string",
+                        "example": "Yoga"
+                    },
+                    "hora": {
+                        "description": "Hora de la clase",
+                        "type": "string",
+                        "format": "time",
+                        "example": "10:00"
+                    },
+                    "sala": {
+                        "description": "Sala donde se imparte la clase",
+                        "type": "string",
+                        "example": "Sala A"
+                    },
+                    "imagen": {
+                        "description": "URL de la imagen representativa",
+                        "type": "string",
+                        "example": "https://ejemplo.com/imagen.jpg"
+                    },
+                    "created_at": {
+                        "description": "Fecha de creación",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-02-26T15:00:00Z"
+                    },
+                    "updated_at": {
+                        "description": "Fecha de última actualización",
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2024-02-27T10:30:00Z"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
