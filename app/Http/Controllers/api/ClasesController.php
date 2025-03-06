@@ -35,7 +35,7 @@ class ClasesController extends MiController
      */
     public function index(Request $request)
     {
-        if (isset($request->paginate)) return $this->paginar($request);
+        if (isset($request->paginar)) return $this->paginar($request);
         if (isset($request->sala)) return $this->filtrarSala(intval($request->sala));
         return response()->json(Clases::all(), 200);
     }
