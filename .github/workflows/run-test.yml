@@ -47,11 +47,11 @@ jobs:
 
     - name: Set up environment file
       run: |
-        if [ -f .env.test ]; then
-           cp .env.test .env
-           echo "Archivo .env.test encontrado y copiado correctamente."
+        if [ -f .env.example ]; then
+           cp .env.example .env
+           echo "Archivo .env.example encontrado y copiado correctamente."
         else
-           echo "No se encontró .env.test"
+           echo "No se encontró .env.example"
            exit 1
         fi
         php artisan key:generate
