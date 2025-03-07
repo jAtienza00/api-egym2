@@ -6,6 +6,7 @@ use Tests\TestCase;
 use App\Models\Clases;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
+use Tests\CreatesApplication;
 
 class ApiClaseControllerTest extends TestCase
 {
