@@ -15,17 +15,24 @@ https://github.com/Sala2-20/front-end-api
 
 ## Creador
 
-Formo parte de un grado superior de desarrollo de aplicaciones web, en este grado los principales lenguajes han sido:
- --Java
- --Php
- --Javascript
- --Junto a:
-   --HTML5
-   --CSS
---Fraemworks:
-  --Bootstrap
-  --React
-  --Laravel
+Formo parte de un grado superior de desarrollo de aplicaciones web.
+
+Durante el desarrollo del proyecto, se han empleado las siguientes tecnologías y lenguajes aprendidos en el Grado Superior de Desarrollo de Aplicaciones Web:
+
+### Lenguajes de programación:
+- **Java**
+- **PHP**
+- **JavaScript**
+
+### Tecnologías de desarrollo web:
+- **HTML5**
+- **CSS**
+
+### Frameworks:
+- **Bootstrap**
+- **React**
+- **Laravel**
+
 El uso de python a sido una iniciativa por mi parte, ya que nunca habia desarrollado una web en python.
 
 
