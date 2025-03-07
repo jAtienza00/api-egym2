@@ -47,7 +47,7 @@ jobs:
         cd api-egym2
         ls -la
         if [ -f test ]; then
-           cp teste .env
+           cp test .env
            echo "Archivo .env.example encontrado y copiado correctamente."
         else
            echo "No se encontró .env.example"
