@@ -37,7 +37,8 @@ El uso de python a sido una iniciativa por mi parte, ya que nunca habia desarrol
 
 
 ## Contactar
-
+https://www.linkedin.com/in/jorge-atienza-583764333/
+atienzavivarjorge@gmail.com
 
 ### Imagenes de front-end
 
