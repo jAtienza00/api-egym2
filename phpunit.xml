@@ -12,6 +12,11 @@
             <directory>tests/Feature</directory>
         </testsuite>
     </testsuites>
+    <phpunit bootstrap="vendor/autoload.php">
+        <testsuites>
+            <directory suffix="Test.php">./tests/Unit</directory>
+        </testsuites>
+    </phpunit>
     <source>
         <include>
             <directory>app</directory>
