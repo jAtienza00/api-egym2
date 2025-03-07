@@ -9,9 +9,9 @@ Este proyecto es muy basico pero funciona, se constituye de dos apis (una api pr
 
 Para usarlo (localmente) se descargara las siguientes partes desde github:
 
-https://github.com/Sala2-20/api-egym2/tree/main
-https://github.com/Sala2-20/api-python-user
-https://github.com/Sala2-20/front-end-api
+- https://github.com/Sala2-20/api-egym2/tree/main
+- https://github.com/Sala2-20/api-python-user
+- https://github.com/Sala2-20/front-end-api
 
 ## Creador
 
