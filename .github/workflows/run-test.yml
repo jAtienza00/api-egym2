@@ -42,12 +42,10 @@ jobs:
         cd api-egym2
         composer install --prefer-dist --no-progress --no-suggest
 
-    - name: List project files
-      run: ls -la
-
     - name: Set up environment file
       run: |
         cd api-egym2
+        ls -la
         if [ -f test ]; then
            cp teste .env
            echo "Archivo .env.example encontrado y copiado correctamente."
