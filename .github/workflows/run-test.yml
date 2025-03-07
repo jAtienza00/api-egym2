@@ -47,8 +47,8 @@ jobs:
 
     - name: Set up environment file
       run: |
-        if [ -f .env.example ]; then
-           cp .env.example .env
+        if [ -f test ]; then
+           cp teste .env
            echo "Archivo .env.example encontrado y copiado correctamente."
         else
            echo "No se encontró .env.example"
