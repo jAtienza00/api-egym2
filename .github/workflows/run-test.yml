@@ -41,10 +41,16 @@ jobs:
       run: |
         cd api-egym2
         composer install --prefer-dist --no-progress --no-suggest
-
+        
+    - name: Dar permisos de ejecución a PHPUnit
+      run: |
+        cd api-egym2
+        chmod +x ./vendor/bin/phpunit
+        
     - name: Set up environment file
       run: |
         cd api-egym2
+        ./vendor/bin/phpunit --configuration phpunit.xml
         ls -la
         if [ -f test ]; then
            cp test .env
