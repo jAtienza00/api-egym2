@@ -39,6 +39,6 @@ El uso de python a sido una iniciativa por mi parte, ya que nunca habia desarrol
 ## Contactar
 
 
-##Imagenes de front-end
+###Imagenes de front-end
 
 Todas son de Creative Commons, aun asi el logo esta sacado por inteligencia artificial (espero que ha nadie le moleste) ya que su uso es exclusivo para la imagen de la web y para identificar el proyecto.
