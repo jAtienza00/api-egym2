@@ -1,0 +1,64 @@
+name: Run Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    services:
+      mysql:
+        image: mysql:5.7  # Usamos una imagen de MySQL
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_db
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-timeout=30s
+          --health-start-period=10s
+          --health-retries=3
+
+    steps:
+    - name: Set up environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install php-cli php-mbstring php-xml php-mysql unzip curl
+        curl -sS https://getcomposer.org/installer | php
+        sudo mv composer.phar /usr/local/bin/composer
+
+    - name: Checkout repository
+      run: git clone https://github.com/sala2-20/api-egym2.git
+
+    - name: Install dependencies
+      run: |
+        cd api-egym2
+        composer install --prefer-dist --no-progress --no-suggest
+
+    - name: List project files
+      run: ls -la
+
+    - name: Set up environment file
+      run: |
+        if [ -f .env.example ]; then
+           cp .env.example .env
+           echo "Archivo .env.example encontrado y copiado correctamente."
+        else
+           echo "No se encontró .env.example"
+           exit 1
+        fi
+        php artisan key:generate
+        php artisan migrate --env=testing
+
+
+    - name: Run tests
+      run: |
+        cd api-egym2
+        ./vendor/bin/phpunit --configuration phpunit.xml
