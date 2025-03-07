@@ -41,6 +41,13 @@ jobs:
       run: |
         cd api-egym2
         composer install --prefer-dist --no-progress --no-suggest
+
+
+    - name: Limpiar caché de Composer
+      run: |
+        cd api-egym2
+        composer dump-autoload
+
         
     - name: Dar permisos de ejecución a PHPUnit
       run: |
