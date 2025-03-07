@@ -47,8 +47,8 @@ jobs:
 
     - name: Set up environment file
       run: |
+        cd api-egym2
         if [ -f test ]; then
-           cd api-egym2
            cp teste .env
            echo "Archivo .env.example encontrado y copiado correctamente."
         else
