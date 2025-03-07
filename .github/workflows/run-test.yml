@@ -42,11 +42,21 @@ jobs:
         cd api-egym2
         composer install --prefer-dist --no-progress --no-suggest
 
-    - name: Set up .env file for testing
+    - name: List project files
+      run: ls -la
+
+    - name: Set up environment file
       run: |
-        cp .env.test .env
+        if [ -f .env.test ]; then
+           cp .env.test .env
+           echo "Archivo .env.test encontrado y copiado correctamente."
+        else
+           echo "No se encontró .env.test"
+           exit 1
+        fi
         php artisan key:generate
         php artisan migrate --env=testing
+
 
     - name: Run tests
       run: |
